@@ -32,6 +32,14 @@ export class Container extends Component {
     }));
   };
 
+  // update multiple properties in same state
+
+  changeState = () => {
+    this.setState({
+      stateprop1: this.state.stateprop1 + "V",
+    });
+  };
+
   render() {
     return (
       <div>
@@ -97,6 +105,36 @@ export class Container extends Component {
         </button>
         <p>
           <b>{this.state.stateCounter}</b>
+        </p>
+        <h3>Updating Multiple States in One Component</h3>
+        <p>
+          Since React merges the previous component state with the new component state it is possible to update
+          individual properties in each componenet state. FOr example, out component currently has 2 states. The first
+          displays the string "Out initial state", the second is a counter initialized to 0. Since state is an object,
+          we can say that these are both properties of the same object. React's merging allows us to manipulate one
+          state without effecting the other. Below are two buttons and the displays of our two initial states. When
+          clicking either button, the state is updated and merged with the old state. We know this is the case since the
+          counter doesn't reset to 0 and the string doesn't reset to it's initial value.
+        </p>
+        <button
+          onClick={() => {
+            this.incrementCount();
+          }}
+        >
+          Increment
+        </button>
+        <p>
+          <b>{this.state.stateCounter}</b>
+        </p>
+        <button
+          onClick={() => {
+            this.changeState();
+          }}
+        >
+          Change String
+        </button>
+        <p>
+          <b>{this.state.stateprop1}</b>
         </p>
       </div>
     );
