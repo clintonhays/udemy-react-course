@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Component1 from "../functional/Component1";
 
 export class Container extends Component {
   constructor(props) {
@@ -32,12 +33,21 @@ export class Container extends Component {
     }));
   };
 
-  // update multiple properties in same state
+  // update multiple state properties in same component
 
   changeState = () => {
     this.setState({
       stateprop1: this.state.stateprop1 + "V",
     });
+  };
+
+  // Update multiple state properties with one function
+
+  doubleDuty = () => {
+    this.setState((prevState, props) => ({
+      stateCounter: prevState.stateCounter + 3,
+      stateprop1: prevState.stateprop1 + "!",
+    }));
   };
 
   render() {
@@ -135,6 +145,48 @@ export class Container extends Component {
         </button>
         <p>
           <b>{this.state.stateprop1}</b>
+        </p>
+        <h3>Updating Multiple States in one setState() Call</h3>
+        <p>
+          Since state is an object and we can target individual properties with setState() we can update the state in
+          multiple ways. Below are two buttons, one updates the counter AND string, the other updates only the counter.
+          This works because we can target which property we want to update in the functions we create.
+        </p>
+        <button
+          onClick={() => {
+            this.doubleDuty();
+          }}
+        >
+          Increment Count & Update String
+        </button>
+        <p>
+          <b>
+            {this.state.stateCounter} {this.state.stateprop1}
+          </b>
+        </p>
+        <button
+          onClick={() => {
+            this.incrementCount();
+          }}
+        >
+          Increment
+        </button>
+        <p>
+          <b>
+            {this.state.stateCounter} {this.state.stateprop1}
+          </b>
+        </p>
+        <button
+          onClick={() => {
+            this.changeState();
+          }}
+        >
+          Change String
+        </button>
+        <p>
+          <b>
+            {this.state.stateCounter} {this.state.stateprop1}
+          </b>
         </p>
       </div>
     );
