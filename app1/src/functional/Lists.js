@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 const Lists = () => {
-  const [pets, setPets] = useState(["dog", "dog", "dog", "cat"]);
-  const mapped = pets.map((pet) => !"cat");
+  const [nums, setnum] = useState([1, 2, 3, 4]);
+  const mapped = nums.map((num) => num * 2);
 
   return (
     <article>
@@ -28,10 +28,9 @@ const Lists = () => {
           undefined. The practicality of this is that we often will be iterating over data where we need the transformed
           array returned back to us, so in most scenarios we will employ <code>.map()</code>. <br />
           Below is an example of using <code>.map()</code>. I've given a state to our component that contains an array
-          that looks like this: [🐕, 🐕, 🐕, 🐈]. Using <code>.map()</code> we will return a transformed array the
-          leaves us with only 🐕 in the array. <br />
-          {pets}
-          {mapped}
+          that looks like this: [1, 2, 3, 4]. Using <code>.map()</code> we will multiply each number by 2. <br />
+          This is the render of the original array: {nums} <br />
+          This is the render of the mapped array: {mapped}
         </p>
       </section>
     </article>
