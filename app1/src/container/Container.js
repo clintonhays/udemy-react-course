@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Conditional from "../functional/Conditional";
+import Lists from "../functional/Lists";
 import PropsComponent from "../functional/PropsComponent";
 import State from "../functional/State";
 
@@ -128,6 +129,9 @@ export class Container extends Component {
         </div>
         <div className="conditionalComponent">
           <Conditional />
+        </div>
+        <div className="listsComponent">
+          <Lists />
         </div>
       </article>
     );
