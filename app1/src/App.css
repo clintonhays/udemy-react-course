@@ -1,3 +1,8 @@
-button:hover {
-  background-color: yellow;
+.App {
+  width: 60%;
+  margin: 0 auto;
+}
+
+button:active {
+  transform: scale(0.95);
 }

@@ -1,15 +1,20 @@
 import React, { Component } from "react";
-import Component1 from "../functional/Component1";
+import Conditional from "../functional/Conditional";
+import PropsComponent from "../functional/PropsComponent";
+import State from "../functional/State";
 
 export class Container extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      stateprop1: "Our initial state",
-      stateCounter: 0,
-    };
-  }
+  state = {
+    state1: "Our initial state.",
+    state2: "This state won't change.",
+    state3: "This state will change!",
+    state4: "I'm gonna change!",
+    state5: "Me, too!",
+    stateCounter: 0,
+    stateCounter2: 0,
+    stateCounter3: 0,
+    stateCondition: true,
+  };
 
   // wrong way
 
@@ -21,174 +26,110 @@ export class Container extends Component {
 
   changeStateCorrect = () => {
     this.setState({
-      stateprop1: "Correctly updated state!",
+      state3: "See? I changed!",
     });
   };
 
   // using prevState
 
   incrementCount = () => {
-    this.setState((prevState, props) => ({
+    this.setState((prevState) => ({
       stateCounter: prevState.stateCounter + 1,
+    }));
+  };
+
+  decrementCount = () => {
+    this.setState((prevState) => ({
+      stateCounter: prevState.stateCounter - 1,
     }));
   };
 
   // update multiple state properties in same component
 
-  changeState = () => {
+  incrementCount2 = () => {
+    this.setState((prevState) => ({
+      stateCounter2: prevState.stateCounter2 + 1,
+    }));
+  };
+
+  incrementCount3 = () => {
+    this.setState((prevState) => ({
+      stateCounter3: prevState.stateCounter3 + 2,
+    }));
+  };
+
+  // update multiple state properties with one function
+
+  doubleDuty = () => {
     this.setState({
-      stateprop1: this.state.stateprop1 + "V",
+      state4: "It worked!",
+      state5: "It worked!",
     });
   };
 
-  // Update multiple state properties with one function
+  // conditional operator buttons
 
-  doubleDuty = () => {
-    this.setState((prevState, props) => ({
-      stateCounter: prevState.stateCounter + 3,
-      stateprop1: prevState.stateprop1 + "!",
-    }));
+  conditionTrue = () => {
+    this.setState({
+      stateCondition: true,
+    });
+  };
+
+  conditionFalse = () => {
+    this.setState({
+      stateCondition: false,
+    });
   };
 
   render() {
     return (
-      <div>
-        Container.js <h2>Props</h2>
+      <article>
+        <h1>{this.props.title}</h1>
         <p>
-          The name prop on the render of Container in App.js passes down the information to the actual Container. <br />
-          {this.props.nick} {"<="} This is the prop.
+          The title above is being passed down from App.js through props. Props act similar to arguments passed to a
+          JavaScript function. The value can be used and in this case rendered as a title. Let's talk more about props.
         </p>
-        <h2>State</h2>
-        <p>
-          The state of a component is essentialy the temporary data the component uses. State can be any form of data,
-          but should be able to be updated. To access state in jsx, we use the 'this' key word. Here is the state of
-          Container: <b>{this.state.stateprop1}</b>.
-        </p>
-        <h2>Updating State</h2>
-        <h3>Incorrect</h3>
-        <p>
-          State should NEVER be mutated directly. For example; the button below <i>should</i> call a function that
-          changes state directly. However, it doesn't work becuase React doesn't allow direct change of state. It would
-          leave us no access to the previous state, it would mutate the state. Instead, we use the{" "}
-          <code>setState()</code> method.
-        </p>
-        <button
-          onClick={() => {
-            this.changeStateWrong();
-          }}
-        >
-          Change State Directly
-        </button>
-        <p>
-          <b>{this.state.stateprop1}</b>
-        </p>
-        <h3>Correct</h3>
-        <p>
-          To update state correctly, we use the <code>setState()</code> method. This is a method on the component class
-          that allows us to update state and merge the old state with the new. This means we do not mutate the original
-          state, but merge it with the new state. This has the same effect, but still allows us to access the previous
-          state. The button below calls a function that uses the <code>setState()</code> method, click it and see the
-          state update across the page.
-        </p>
-        <button
-          onClick={() => {
-            this.changeStateCorrect();
-          }}
-        >
-          Change State by setState()
-        </button>
-        <p>
-          <b>{this.state.stateprop1}</b>
-        </p>
-        <h3>PrevState</h3>
-        <p>
-          It may be beneficial to update state based on the previous state. This is most easily recognizable in a simple
-          counter. To demonstate this we will initialize a state of '0', then we will increment it by 1 when the button
-          is clicked.
-        </p>
-        <button
-          onClick={() => {
-            this.incrementCount();
-          }}
-        >
-          Increment
-        </button>
-        <p>
-          <b>{this.state.stateCounter}</b>
-        </p>
-        <h3>Updating Multiple States in One Component</h3>
-        <p>
-          Since React merges the previous component state with the new component state it is possible to update
-          individual properties in each componenet state. FOr example, out component currently has 2 states. The first
-          displays the string "Out initial state", the second is a counter initialized to 0. Since state is an object,
-          we can say that these are both properties of the same object. React's merging allows us to manipulate one
-          state without effecting the other. Below are two buttons and the displays of our two initial states. When
-          clicking either button, the state is updated and merged with the old state. We know this is the case since the
-          counter doesn't reset to 0 and the string doesn't reset to it's initial value.
-        </p>
-        <button
-          onClick={() => {
-            this.incrementCount();
-          }}
-        >
-          Increment
-        </button>
-        <p>
-          <b>{this.state.stateCounter}</b>
-        </p>
-        <button
-          onClick={() => {
-            this.changeState();
-          }}
-        >
-          Change String
-        </button>
-        <p>
-          <b>{this.state.stateprop1}</b>
-        </p>
-        <h3>Updating Multiple States in one setState() Call</h3>
-        <p>
-          Since state is an object and we can target individual properties with setState() we can update the state in
-          multiple ways. Below are two buttons, one updates the counter AND string, the other updates only the counter.
-          This works because we can target which property we want to update in the functions we create.
-        </p>
-        <button
-          onClick={() => {
-            this.doubleDuty();
-          }}
-        >
-          Increment Count & Update String
-        </button>
-        <p>
-          <b>
-            {this.state.stateCounter} {this.state.stateprop1}
-          </b>
-        </p>
-        <button
-          onClick={() => {
-            this.incrementCount();
-          }}
-        >
-          Increment
-        </button>
-        <p>
-          <b>
-            {this.state.stateCounter} {this.state.stateprop1}
-          </b>
-        </p>
-        <button
-          onClick={() => {
-            this.changeState();
-          }}
-        >
-          Change String
-        </button>
-        <p>
-          <b>
-            {this.state.stateCounter} {this.state.stateprop1}
-          </b>
-        </p>
-      </div>
+
+        <div className="propsComponent">
+          <PropsComponent topic="React Props" />
+        </div>
+        <div className="stateComponent">
+          <State
+            state={this.state.state1}
+            state2={this.state.state2}
+            state3={this.state.state3}
+            state4={this.state.state4}
+            state5={this.state.state5}
+            stateCounter={this.state.stateCounter}
+            stateCounter2={this.state.stateCounter2}
+            stateCounter3={this.state.stateCounter3}
+            wrongUpdate={() => {
+              this.changeStateWrong();
+            }}
+            rightUpdate={() => {
+              this.changeStateCorrect();
+            }}
+            incrementCount={() => {
+              this.incrementCount();
+            }}
+            decrementCount={() => {
+              this.decrementCount();
+            }}
+            incrementCount2={() => {
+              this.incrementCount2();
+            }}
+            incrementCount3={() => {
+              this.incrementCount3();
+            }}
+            doubleDuty={() => {
+              this.doubleDuty();
+            }}
+          />
+        </div>
+        <div className="conditionalComponent">
+          <Conditional />
+        </div>
+      </article>
     );
   }
 }
